@@ -36,8 +36,8 @@ export function TemporalEditor({
   function moveUp(index: number) {
     if (index === 0) return;
     const next = [...events];
-    const temp = next[index];
-    next[index] = next[index - 1];
+    const temp = next[index]!;
+    next[index] = next[index - 1]!;
     next[index - 1] = temp;
     onChange(next.map((e, i) => ({ ...e, order: i })));
   }
