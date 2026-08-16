@@ -31,11 +31,11 @@ export interface KeyframeResult {
   frameIdx: number;
   score: number;
   rank: number;
-  imageUrl?: string;
-  timestamp?: number;
-  ocr?: string;
-  asr?: string;
-  source?: "api" | "demo";
+  imageUrl: string | undefined;
+  timestamp: number | undefined;
+  ocr: string | undefined;
+  asr: string | undefined;
+  source: "api" | "demo";
 }
 
 export interface SearchResponse {
