@@ -1,4 +1,4 @@
-# PIKA SEARCH — Web UI cho cuộc thi AI
+# PLTN — Web UI cho cuộc thi AI
 
 Xây một trang tìm kiếm video/keyframe kiểu "PIKA SEARCH", giữ layout gốc (sidebar trái + grid keyframe) nhưng nâng cấp thị giác để trình diễn ấn tượng. Kết quả lấy từ API search có sẵn của bạn.
 
