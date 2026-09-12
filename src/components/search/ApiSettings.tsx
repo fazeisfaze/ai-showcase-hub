@@ -37,7 +37,7 @@ export function ApiSettings({
           />
           <p className="text-[10px] text-muted-foreground">
             Also configurable via{" "}
-            <code className="rounded bg-background px-1 py-0.5 text-neon-green">
+            <code className="rounded bg-background px-1 py-0.5 text-neon-pink">
               PLTN_API_BASE_URL
             </code>{" "}
             env var.

@@ -1,10 +1,8 @@
-import type { SearchMode } from "@/lib/pika.types";
+import type { SearchMode } from "@/lib/pltn.types";
 
 const MODES: { value: SearchMode; label: string }[] = [
   { value: "text", label: "Text" },
   { value: "image", label: "Image" },
-  { value: "ocr", label: "Ocr" },
-  { value: "asr", label: "Asr" },
   { value: "temporal", label: "Temporal" },
 ];
 
@@ -26,7 +24,7 @@ export function ModeTabs({
             onClick={() => onChange(mode.value)}
             className={`rounded-md px-2 py-1.5 text-xs font-semibold transition-all ${
               active
-                ? "bg-primary text-primary-foreground shadow-[0_0_12px_oklch(0.75_0.18_145/40%)]"
+                ? "bg-primary text-primary-foreground shadow-[0_0_12px_oklch(0.72_0.22_345/40%)]"
                 : "text-muted-foreground hover:bg-secondary hover:text-foreground"
             }`}
           >

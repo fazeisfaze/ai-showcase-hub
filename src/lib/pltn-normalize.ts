@@ -1,13 +1,13 @@
-import type { KeyframeResult, RawApiItem, RawApiResponse, SearchMode, SearchResponse } from "./pika.types";
+import type {
+  KeyframeResult,
+  RawApiItem,
+  RawApiResponse,
+  SearchMode,
+  SearchResponse,
+} from "./pltn.types";
 
 function pickVideoId(raw: RawApiItem): string {
-  return (
-    raw.video_id ??
-    raw.videoId ??
-    raw.video_name ??
-    raw.video ??
-    "unknown"
-  );
+  return raw.video_id ?? raw.videoId ?? raw.video_name ?? raw.video ?? "unknown";
 }
 
 function pickFrameIdx(raw: RawApiItem): number {
@@ -88,10 +88,7 @@ export function normalizeApiResponse(
   return {
     results,
     total: payload.total ?? results.length,
-    elapsedMs:
-      payload.elapsed ??
-      payload.elapsed_time ??
-      elapsedMs,
+    elapsedMs: payload.elapsed ?? payload.elapsed_time ?? elapsedMs,
     mode,
     source,
   };
@@ -110,35 +107,28 @@ const DEMO_IMAGES = [
   "traffic",
 ];
 
-export function makeDemoResponse(
-  mode: SearchMode,
-  query = "",
-  topK = 100,
-): SearchResponse {
-  const results: KeyframeResult[] = Array.from({ length: Math.min(topK, 60) }).map(
-    (_, i) => {
-      const videoId = `L${String((i % 5) + 1).padStart(2, "0")}_V${String(
-        Math.floor(i / 5) + 1,
-      ).padStart(3, "0")}`;
-      const frameIdx = Math.floor(Math.random() * 5000) + 100;
-      const keyword = query || mode;
-      const imageKeyword = DEMO_IMAGES[i % DEMO_IMAGES.length];
-      return {
-        id: `${videoId}-${frameIdx}-${i}`,
-        videoId,
-        frameIdx,
-        score: 1 - i * 0.01 - Math.random() * 0.05,
-        rank: i + 1,
-        imageUrl: `https://placehold.co/320x180/1a2035/9ca3af?text=${encodeURIComponent(
-          `${imageKeyword}\n${videoId}\nframe ${frameIdx}`,
-        )}`,
-        timestamp: frameIdx / 25,
-        ocr: mode === "ocr" ? keyword : `${imageKeyword} scene`,
-        asr: mode === "asr" ? keyword : `audio transcript ${i + 1}`,
-        source: "demo",
-      };
-    },
-  );
+export function makeDemoResponse(mode: SearchMode, query = "", topK = 100): SearchResponse {
+  const results: KeyframeResult[] = Array.from({ length: Math.min(topK, 60) }).map((_, i) => {
+    const videoId = `L${String((i % 5) + 1).padStart(2, "0")}_V${String(
+      Math.floor(i / 5) + 1,
+    ).padStart(3, "0")}`;
+    const frameIdx = Math.floor(Math.random() * 5000) + 100;
+    const imageKeyword = DEMO_IMAGES[i % DEMO_IMAGES.length];
+    return {
+      id: `${videoId}-${frameIdx}-${i}`,
+      videoId,
+      frameIdx,
+      score: 1 - i * 0.01 - Math.random() * 0.05,
+      rank: i + 1,
+      imageUrl: `https://placehold.co/320x180/1a2035/9ca3af?text=${encodeURIComponent(
+        `${imageKeyword}\n${videoId}\nframe ${frameIdx}`,
+      )}`,
+      timestamp: frameIdx / 25,
+      ocr: `${imageKeyword} scene`,
+      asr: `audio transcript ${i + 1}`,
+      source: "demo",
+    };
+  });
 
   return {
     results,

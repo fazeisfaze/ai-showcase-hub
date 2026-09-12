@@ -35,7 +35,7 @@ Modal lớn khi click ảnh:
 ## Chi tiết kỹ thuật
 
 - Route: `/` là trang search (thay placeholder), kèm `head()` title/description/OG riêng.
-- Files chính: `src/routes/index.tsx`, `src/components/search/{Sidebar,ModeTabs,ResultGrid,KeyframeCard,DetailModal,SubmissionCart,TemporalEditor}.tsx`, `src/lib/pika.functions.ts` (server fn proxy), `src/lib/pika-normalize.ts` (adapter + types).
+- Files chính: `src/routes/index.tsx`, `src/components/search/{Sidebar,ModeTabs,ResultGrid,KeyframeCard,DetailModal,SubmissionCart,TemporalEditor}.tsx`, `src/lib/pltn.functions.ts` (server fn proxy), `src/lib/pltn-normalize.ts` (adapter + types).
 - Tokens màu/neon/shadow thêm vào `src/styles.css`; không hardcode màu trong component.
 - State query bằng TanStack Query (`useMutation` cho search), giữ lịch sử truy vấn trong session.
 - Upload ảnh gửi dạng base64 qua proxy tới API.

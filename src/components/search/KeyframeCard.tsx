@@ -1,27 +1,15 @@
 import { Eye, ImageIcon } from "lucide-react";
-import type { KeyframeResult } from "@/lib/pika.types";
+import type { KeyframeResult } from "@/lib/pltn.types";
 
 interface KeyframeCardProps {
   result: KeyframeResult;
-  selected: boolean;
-  onSelect: (id: string) => void;
   onView: (result: KeyframeResult) => void;
   onSimilar: (result: KeyframeResult) => void;
 }
 
-export function KeyframeCard({
-  result,
-  selected,
-  onSelect,
-  onView,
-  onSimilar,
-}: KeyframeCardProps) {
+export function KeyframeCard({ result, onView, onSimilar }: KeyframeCardProps) {
   return (
-    <div
-      className={`group relative overflow-hidden rounded-lg border bg-card transition-all hover:border-primary hover:shadow-[0_0_16px_oklch(0.75_0.18_145/20%)] ${
-        selected ? "border-primary ring-1 ring-primary" : "border-border"
-      }`}
-    >
+    <div className="group relative overflow-hidden rounded-lg border border-border bg-card transition-all hover:border-primary hover:shadow-[0_0_16px_oklch(0.72_0.22_345/25%)]">
       <div className="relative aspect-video w-full overflow-hidden bg-black">
         <img
           src={result.imageUrl}
@@ -47,7 +35,7 @@ export function KeyframeCard({
             <ImageIcon className="h-4 w-4" />
           </button>
         </div>
-        <div className="absolute left-2 top-2 rounded bg-black/70 px-1.5 py-0.5 text-[10px] font-mono text-neon-cyan">
+        <div className="absolute left-2 top-2 rounded bg-black/70 px-1.5 py-0.5 text-[10px] font-mono text-neon-light-pink">
           #{result.rank}
         </div>
         {result.source === "demo" && (
@@ -61,23 +49,10 @@ export function KeyframeCard({
           <span className="truncate font-mono text-xs font-semibold text-foreground">
             {result.videoId}
           </span>
-          <span className="shrink-0 text-[10px] text-muted-foreground">
-            f{result.frameIdx}
-          </span>
+          <span className="shrink-0 text-[10px] text-muted-foreground">f{result.frameIdx}</span>
         </div>
         <div className="flex items-center justify-between gap-2">
-          <span className="text-xs text-neon-green">
-            {(result.score * 100).toFixed(1)}%
-          </span>
-          <label className="flex cursor-pointer items-center gap-1.5 text-[10px] text-muted-foreground hover:text-foreground">
-            <input
-              type="checkbox"
-              checked={selected}
-              onChange={() => onSelect(result.id)}
-              className="accent-primary"
-            />
-            Pick
-          </label>
+          <span className="text-xs text-neon-pink">{(result.score * 100).toFixed(1)}%</span>
         </div>
       </div>
     </div>

@@ -1,10 +1,10 @@
 import { createServerFn } from "@tanstack/react-start";
 import { z } from "zod";
-import { makeDemoResponse, normalizeApiResponse } from "./pika-normalize";
-import type { SearchParams, SearchResponse } from "./pika.types";
+import { makeDemoResponse, normalizeApiResponse } from "./pltn-normalize";
+import type { SearchParams, SearchResponse } from "./pltn.types";
 
 const SearchPayloadSchema = z.object({
-  mode: z.enum(["text", "image", "ocr", "asr", "temporal"]),
+  mode: z.enum(["text", "image", "temporal"]),
   query: z.string().optional(),
   imageBase64: z.string().optional(),
   ocrFilter: z.string().optional(),
@@ -20,6 +20,7 @@ const SearchPayloadSchema = z.object({
     .optional(),
   topK: z.number().min(1).max(500),
   model: z.string(),
+  apiBaseUrl: z.string().optional(),
 });
 
 function getApiBaseUrl(): string | undefined {
@@ -28,47 +29,29 @@ function getApiBaseUrl(): string | undefined {
 
 function buildApiBody(params: SearchParams): unknown {
   const base = {
+    mode: params.mode,
     model: params.model,
     top_k: params.topK,
-    topk: params.topK,
   };
 
   switch (params.mode) {
-    case "text":
-      return {
-        ...base,
-        query: params.query,
-        text: params.query,
-      };
     case "image":
       return {
         ...base,
-        image: params.imageBase64,
         image_base64: params.imageBase64,
-      };
-    case "ocr":
-      return {
-        ...base,
-        query: params.query,
-        text: params.query,
-        ocr_filter: params.ocrFilter,
-      };
-    case "asr":
-      return {
-        ...base,
-        query: params.query,
-        text: params.query,
-        asr_filter: params.asrFilter,
       };
     case "temporal":
       return {
         ...base,
-        events:
-          params.temporalEvents?.map((e) => e.text) ?? [],
-        temporal: params.temporalEvents?.map((e) => e.text) ?? [],
+        query: params.temporalEvents?.map((e) => e.text) ?? [],
       };
     default:
-      return base;
+      return {
+        ...base,
+        query: params.query,
+        ...(params.ocrFilter ? { ocr_filter: params.ocrFilter } : {}),
+        ...(params.asrFilter ? { asr_filter: params.asrFilter } : {}),
+      };
   }
 }
 
@@ -76,7 +59,7 @@ export const searchKeyframes = createServerFn({ method: "POST" })
   .inputValidator((input: unknown) => SearchPayloadSchema.parse(input))
   .handler(async ({ data }): Promise<SearchResponse> => {
     const start = performance.now();
-    const baseUrl = getApiBaseUrl();
+    const baseUrl = data.apiBaseUrl?.trim() || getApiBaseUrl();
 
     if (!baseUrl) {
       return makeDemoResponse(data.mode, data.query, data.topK);

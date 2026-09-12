@@ -3,11 +3,7 @@ import { Logo } from "./Logo";
 import { ModeTabs } from "./ModeTabs";
 import { TemporalEditor } from "./TemporalEditor";
 import { ApiSettings } from "./ApiSettings";
-import type {
-  SearchMode,
-  SearchModel,
-  TemporalEvent,
-} from "@/lib/pika.types";
+import type { SearchMode, SearchModel, TemporalEvent } from "@/lib/pltn.types";
 
 interface SearchSidebarProps {
   mode: SearchMode;
@@ -87,17 +83,11 @@ export function SearchSidebar(props: SearchSidebarProps) {
               className="flex cursor-pointer flex-col items-center justify-center gap-2 rounded-lg border-2 border-dashed border-border bg-background px-4 py-8 text-center transition-colors hover:border-primary hover:bg-secondary"
             >
               {imageBase64 ? (
-                <img
-                  src={imageBase64}
-                  alt="Query"
-                  className="max-h-32 rounded-md object-contain"
-                />
+                <img src={imageBase64} alt="Query" className="max-h-32 rounded-md object-contain" />
               ) : (
                 <>
                   <ImagePlus className="h-8 w-8 text-muted-foreground" />
-                  <span className="text-sm text-muted-foreground">
-                    Drop or click to upload
-                  </span>
+                  <span className="text-sm text-muted-foreground">Drop or click to upload</span>
                 </>
               )}
               <input
@@ -119,16 +109,11 @@ export function SearchSidebar(props: SearchSidebarProps) {
             )}
           </div>
         ) : mode === "temporal" ? (
-          <TemporalEditor
-            events={temporalEvents}
-            onChange={setTemporalEvents}
-          />
+          <TemporalEditor events={temporalEvents} onChange={setTemporalEvents} />
         ) : (
           <div className="space-y-2">
             <p className="text-xs font-semibold uppercase tracking-wider text-muted-foreground">
-              {mode === "text" && "Text query"}
-              {mode === "ocr" && "OCR query"}
-              {mode === "asr" && "ASR query"}
+              Text query
             </p>
             <textarea
               value={query}
@@ -188,7 +173,7 @@ export function SearchSidebar(props: SearchSidebarProps) {
           <p className="text-xs font-semibold uppercase tracking-wider text-muted-foreground">
             Top K
           </p>
-          <span className="text-xs font-mono text-neon-cyan">{topK}</span>
+          <span className="text-xs font-mono text-neon-light-pink">{topK}</span>
         </div>
         <input
           type="range"
@@ -205,7 +190,7 @@ export function SearchSidebar(props: SearchSidebarProps) {
         type="button"
         onClick={onSearch}
         disabled={loading}
-        className="mt-auto flex items-center justify-center gap-2 rounded-lg bg-primary px-4 py-3 text-sm font-bold text-primary-foreground shadow-[0_0_16px_oklch(0.75_0.18_145/40%)] transition-all hover:bg-primary/90 hover:shadow-[0_0_24px_oklch(0.75_0.18_145/55%)] disabled:opacity-60"
+        className="mt-auto flex items-center justify-center gap-2 rounded-lg bg-primary px-4 py-3 text-sm font-bold text-primary-foreground shadow-[0_0_16px_oklch(0.72_0.22_345/40%)] transition-all hover:bg-primary/90 hover:shadow-[0_0_24px_oklch(0.72_0.22_345/55%)] disabled:opacity-60"
       >
         <Search className="h-4 w-4" />
         {loading ? "Searching..." : "Search"}

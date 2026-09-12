@@ -1,12 +1,6 @@
-export type SearchMode = "text" | "image" | "ocr" | "asr" | "temporal";
+export type SearchMode = "text" | "image" | "temporal";
 
-export type SearchModel =
-  | "beit3"
-  | "clip"
-  | "blip2"
-  | "minigpt4"
-  | "llava"
-  | string;
+export type SearchModel = "beit3" | "clip" | "blip2" | "minigpt4" | "llava" | string;
 
 export interface TemporalEvent {
   id: string;
@@ -23,6 +17,7 @@ export interface SearchParams {
   temporalEvents?: TemporalEvent[];
   topK: number;
   model: SearchModel;
+  apiBaseUrl?: string;
 }
 
 export interface KeyframeResult {

@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { GripVertical, Plus, Trash2 } from "lucide-react";
-import type { TemporalEvent } from "@/lib/pika.types";
+import type { TemporalEvent } from "@/lib/pltn.types";
 
 export function TemporalEditor({
   events,
@@ -26,11 +26,7 @@ export function TemporalEditor({
   }
 
   function removeEvent(id: string) {
-    onChange(
-      events
-        .filter((e) => e.id !== id)
-        .map((e, i) => ({ ...e, order: i })),
-    );
+    onChange(events.filter((e) => e.id !== id).map((e, i) => ({ ...e, order: i })));
   }
 
   function moveUp(index: number) {
@@ -76,9 +72,7 @@ export function TemporalEditor({
             <span className="flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-secondary text-[10px] font-bold text-secondary-foreground">
               {index + 1}
             </span>
-            <span className="min-w-0 flex-1 truncate text-sm text-foreground">
-              {event.text}
-            </span>
+            <span className="min-w-0 flex-1 truncate text-sm text-foreground">{event.text}</span>
             <button
               type="button"
               onClick={() => moveUp(index)}
